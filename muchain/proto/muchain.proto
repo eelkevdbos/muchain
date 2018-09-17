@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+message Block {
+    string data = 1;
+    int32 index = 2;
+    int32 nonce = 3;
+    string previous_hash = 4;
+    string hash = 5;
+}
+
+message Response {
+    bool ok = 1;
+    string error = 2;
+}
+
+message BlockHashResponse {
+    string hash = 1;
+}
+
+service MuChain {
+    rpc MineBlock (Block) returns (Block);
+    rpc ReceivePropagatedBlock (Block) returns (Response);
+    rpc LatestBlock(google.protobuf.Empty) returns (Block);
+    rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty);
+}

@@ -1,0 +1,20 @@
+version: "3.2"
+
+services:
+  node_one:
+    build: .
+    command: ["--node", "node_two:50051", "--node", "node_three:50051"]
+    volumes: [".:/muchain"]
+    ports: ["5001:50051"]
+
+  node_two:
+    build: .
+    command: ["--node", "node_one:50051", "--node", "node_three:50051"]
+    volumes: [".:/muchain"]
+    ports: ["5002:50051"]
+
+  node_three:
+    build: .
+    command: ["--node", "node_one:50051", "--node", "node_two:50051"]
+    volumes: [".:/muchain"]
+    ports: ["5003:50051"]
